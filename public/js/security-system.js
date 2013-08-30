@@ -1,6 +1,7 @@
 (function(){
 
   var on = true;
+  var socket = io.connect( "http://" + window.location.host );
 
   function setPower( power ) {
     on = power;
@@ -19,18 +20,14 @@
     setPower( !on );
   }
   
-  console.log( "http://" + window.location.host );
-  var socket = io.connect( "http://" + window.location.host );
-
   window.onLoad = function() {
     turnOn();
-  };
+  }
 
   socket.on('poweroff', function (data) {
 
     var timer = setInterval( function() {
-      var rand = Math.random();
-      if( rand > 0.7 ) {
+      if( Math.random() > 0.7 ) {
         togglePower();
       }
     }, 20 );
