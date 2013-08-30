@@ -3,16 +3,16 @@ module.exports = function(io){
 
     // Mirror power off command to all clients
     socket.on('poweroff', function(data){
-      socket.broadcast.emit('poweroff');
+      io.sockets.emit('poweroff');
     });
 
     // Mirror security on command to all clients
     socket.on('securityon', function(data){
-      socket.broadcast.emit('securityon');
+      io.sockets.emit('securityon');
     });
 
     socket.on('reset', function(data){
-      socket.broadcast.emit('reset');
+      io.sockets.emit('reset');
     });
 
   });   
