@@ -1,0 +1,29 @@
+button {
+  height: 33%;
+  width: 100%;
+  display: block;
+  font-size: 40px;
+}
+
+body {
+  padding: 0;
+}
+
+#poweroff {
+  background: black;
+  color: white;
+}
+
+#poweroff:active, #alarm:active, #reset:active {
+  background: gray;
+}
+
+#alarm {
+  background: red;
+  color: white;
+}
+
+#reset {
+  background: green;
+  color: white;
+}
