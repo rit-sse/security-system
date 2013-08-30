@@ -1,5 +1,5 @@
 window.addEventListener('load', function(){
-  var socket = io.connect('http://localhost');
+  var socket = io.connect("http://" + window.location.host);
 
   document.getElementById('poweroff').addEventListener('click', function(){
     socket.emit('poweroff');

@@ -1,7 +1,9 @@
 (function(){
 
   var on = true;
+  var alarmOn = false;
   var socket = io.connect( "http://" + window.location.host );
+  var alarmTimer = null;
 
   function setPower( power ) {
     on = power;
@@ -18,6 +20,11 @@
 
   function togglePower() {
     setPower( !on );
+  }
+
+  function toggleAlarm() {
+    alarmOn = !alarmOn;
+    document.bgColor = alarmOn ? "red" : "black";
   }
   
   window.onLoad = function() {
@@ -39,6 +46,19 @@
     
   });
 
-  socket.on( 'reset', turnOn );
+  socket.on( 'securityon', function() {
+
+    setTimeout( function() {
+      alarmTimer = setInterval( function() {
+        toggleAlarm();
+      }, 1000);
+    }, 5000);
+    
+  });
+
+  socket.on( 'reset', function() {
+    turnOn();
+    clearInterval( alarmTimer );
+  });
 
 })();
