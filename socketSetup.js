@@ -11,5 +11,9 @@ module.exports = function(io){
       socket.broadcast.emit('securityon');
     });
 
+    socket.on('reset', function(data){
+      socket.broadcast.emit('reset');
+    });
+
   });   
 }
