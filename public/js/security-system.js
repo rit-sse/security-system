@@ -36,9 +36,11 @@
 
     socket.on('poweroff', function (data) {
 
-      setTimeout( function() {
-        theme.play();
-      }, 1000 );
+      if( theme ) {
+        setTimeout( function() {
+          theme.play();
+        }, 1000 );
+      }
 
       var timer = setInterval( function() {
         if( Math.random() > 0.7 ) {
@@ -56,8 +58,10 @@
     socket.on( 'securityon', function() {
       body.classList.add( "loading" );
 
-      theme.pause();
-      theme.currentTime = 0;
+      if( theme ) {
+          theme.pause();
+          theme.currentTime = 0;
+      }
 
       setTimeout( function() {
 
