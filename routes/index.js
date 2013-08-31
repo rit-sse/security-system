@@ -14,3 +14,7 @@ exports.admin = function(req, res) {
 exports.music = function(req, res){
   res.render('music', { title: 'Musical version' });
 };
+
+exports.theme = function(req, res){
+  res.render('theme', { title: 'Music' });
+};
