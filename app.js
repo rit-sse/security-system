@@ -30,6 +30,7 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/admin', routes.admin);
+app.get('/music', routes.music);
 
 var serv = http.createServer(app);
 

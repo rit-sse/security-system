@@ -1,0 +1,20 @@
+extends layout
+
+append scripts
+  script(src='/js/security-system.js')
+
+append styles
+  link(rel='stylesheet', type='text/css', href='/stylesheets/index.css')
+
+block content
+
+  div(id='loading', class='message')
+    p Resetting security system...
+    div(class='meter')
+        span
+
+  div(id='intruder', class='message')
+    p Intruder detected
+
+  audio(id='alarm', src='/audio/alarm.mp3', preload, loop)
+  audio(id='theme', src='/audio/theme.mp3', preload, loop)

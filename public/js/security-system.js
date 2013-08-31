@@ -1,64 +1,85 @@
 (function(){
 
   var on = true;
-  var alarmOn = false;
-  var socket = io.connect( "http://" + window.location.host );
-  var alarmTimer = null;
 
-  function setPower( power ) {
+  function setPower( body, power ) {
     on = power;
-    document.bgColor = on ? "white" : "black";
+    if( on ) {
+      body.classList.add("powerOn");
+    } else {
+      body.classList.remove("powerOn");
+    }
   }
 
-  function turnOn() {
-    setPower( true );
+  function turnOn( body ) {
+    setPower( body, true );
   }
 
-  function turnOff() {
-    setPower( false );
+  function turnOff( body ) {
+    setPower( body, false );
   }
 
-  function togglePower() {
-    setPower( !on );
+  function togglePower( body ) {
+    setPower( body, !on );
   }
 
-  function toggleAlarm() {
-    alarmOn = !alarmOn;
-    document.bgColor = alarmOn ? "red" : "black";
-  }
-  
-  window.onLoad = function() {
-    turnOn();
-  }
+  window.onload = function() {
 
-  socket.on('poweroff', function (data) {
+    var socket = io.connect( "http://" + window.location.host );
+    var alarmTimer = null;
 
-    var timer = setInterval( function() {
-      if( Math.random() > 0.7 ) {
-        togglePower();
-      }
-    }, 20 );
+    var body = document.getElementsByTagName("body")[0];
+    var alarm = document.getElementById( "alarm" );
+    var theme = document.getElementById( "theme" );
 
-    setTimeout( function() {
-      clearInterval( timer );
-      turnOff();
-    }, 700 );
-    
-  });
+    body.classList.add("powerOn");
 
-  socket.on( 'securityon', function() {
+    socket.on('poweroff', function (data) {
 
-    setTimeout( function() {
-      alarmTimer = setInterval( function() {
-        toggleAlarm();
-      }, 1000);
-    }, 5000);
-    
-  });
+      setTimeout( function() {
+        theme.play();
+      }, 1000 );
 
-  socket.on( 'reset', function() {
-    turnOn();
-    clearInterval( alarmTimer );
-  });
+      var timer = setInterval( function() {
+        if( Math.random() > 0.7 ) {
+          body.classList.toggle("powerOn");
+        }
+      }, 20 );
+
+      setTimeout( function() {
+        clearInterval( timer );
+        turnOff( body );
+      }, 700 );
+      
+    });
+
+    socket.on( 'securityon', function() {
+      body.classList.add( "loading" );
+
+      theme.pause();
+      theme.currentTime = 0;
+
+      setTimeout( function() {
+
+        alarmTimer = setInterval( function() {
+          alarm.play();
+          body.classList.remove("loading");
+          body.classList.toggle("alarm");
+        }, 1000);
+
+      }, 2000);
+      
+    });
+
+    socket.on( 'reset', function() {
+      body.className = "";
+      body.classList.add("powerOn")
+      clearInterval( alarmTimer );
+      alarm.pause();
+      alarm.currentTime = 0;
+    });
+
+  };
+
 
 })();

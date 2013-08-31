@@ -1,0 +1,82 @@
+body {
+    background: #000;
+}
+
+.powerOn {
+    background: #fff;
+}
+
+.alarm {
+    background: #f00;
+}
+
+.alarm #intruder {
+    display: block;
+}
+
+.loading #loading {
+    display: block;
+}
+    
+.message {
+    display: none;
+
+    position: absolute;
+    left: 50%; top: 50%;
+    margin-left: -200px; margin-top: -200px;
+    width: 400px; height: 400px;
+    text-align: center;
+
+    font-size: 2em;
+}
+
+#loading {
+    color: #fff;
+}
+
+#intruder {
+    text-transform: uppercase;
+    font-size: 6em;
+    font-weight: bold;
+}
+
+.meter { 
+	height: 20px;  /* Can be anything */
+	position: relative;
+	background: #555;
+}
+
+.loading .meter > span {
+    -webkit-animation: progressbar 3s 1;
+    animation: progressbar 3s 1;
+    -webkit-animation-timing-function: linear;
+}
+
+.meter > span {
+	display: block;
+	height: 100%;
+	background-color: blue;
+	position: relative;
+	overflow: hidden;
+}
+
+@keyframes progressbar {
+  from {
+    width: 0%
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes progressbar {
+  from {
+    width: 0%
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
